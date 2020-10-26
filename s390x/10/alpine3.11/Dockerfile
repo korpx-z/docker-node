@@ -52,15 +52,15 @@ RUN addgroup -g 1000 node \
       gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
       gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
     done \
-    && echo 'hello1' \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz" \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
-    && echo 'hello2' \
     && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
     && grep " node-v$NODE_VERSION.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
     && tar -xf "node-v$NODE_VERSION.tar.xz" \
+    && echo 'hello2' \
     && cd "node-v$NODE_VERSION" \
     && ./configure \
+    && echo 'hello1' \
     && make -s -j$(getconf _NPROCESSORS_ONLN) V= \
     && make install \
     && apk del .build-deps-full \
