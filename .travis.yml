@@ -3,12 +3,12 @@ services:
   - docker
 env:
   global:
-    - TEST_DIR="$PWD/s390x/test/14/alpine3.12"
+    - TEST_DIR="$PWD/s390x/test/10/alpine3.11"
     - TEST_SCRIPT="test.sh"
-    - BUILD_DIR="$PWD/s390x/14/alpine3.12"
+    - BUILD_DIR="$PWD/s390x/10/alpine3.11"
     - ENTRYPOINT_SCRIPT="$BUILD_DIR/docker-entrypoint.sh"
     - REPO="quay.io/ibmz/node"
-    - TAG="$REPO:14.14.0"
+    - TAG="$REPO:10.22.1"
 before_script: 
   - chmod +x $ENTRYPOINT_SCRIPT
   - cd $TEST_DIR && chmod +x $TEST_SCRIPT

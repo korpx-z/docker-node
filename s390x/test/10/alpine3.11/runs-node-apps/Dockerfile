@@ -1,4 +1,4 @@
-FROM quay.io/ibmz/node:14.14.0
+FROM quay.io/ibmz/node:10.22.1
 
 COPY . /home/node/app
 WORKDIR /home/node/app
