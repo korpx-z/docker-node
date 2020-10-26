@@ -59,8 +59,8 @@ RUN addgroup -g 1000 node \
     && tar -xf "node-v$NODE_VERSION.tar.xz" \
     && cd "node-v$NODE_VERSION" \
     && ./configure \
-    && make -j$(getconf _NPROCESSORS_ONLN) V= \
-    && make install -s \
+    && make -s -j$(getconf _NPROCESSORS_ONLN) V= \
+    && make install \
     && apk del .build-deps-full \
     && cd .. \
     && rm -Rf "node-v$NODE_VERSION" \
