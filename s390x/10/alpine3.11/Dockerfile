@@ -60,7 +60,7 @@ RUN addgroup -g 1000 node \
     && cd "node-v$NODE_VERSION" \
     && ./configure \
     && make -j$(getconf _NPROCESSORS_ONLN) V= \
-    && make install \
+    && make install -s \
     && apk del .build-deps-full \
     && cd .. \
     && rm -Rf "node-v$NODE_VERSION" \
