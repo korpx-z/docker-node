@@ -71,25 +71,25 @@ RUN gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
   && apk del .build-deps \
   # smoke tests
   && node --version \
+  && npm --version \
+  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+  && grep " node-v$NODE_VERSION.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xf "node-v$NODE_VERSION.tar.xz" >/dev/null 2>/dev/null \
+  && echo 'hello2' \
+  && cd "node-v$NODE_VERSION" \
+  && ./configure >/dev/null 2>/dev/null \
+  && echo 'hello1' \
+  && make -s -j$(getconf _NPROCESSORS_ONLN) V= >/dev/null 2>/dev/null\
+  && make install -s >/dev/null 2>/dev/null\
+  && apk del .build-deps-full \
+  && cd .. \
+  && rm -Rf "node-v$NODE_VERSION" \
+  && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt; \
+  && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
+  && apk del .build-deps \
+  # smoke tests
+  && node --version \
   && npm --version
-    && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
-    && grep " node-v$NODE_VERSION.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-    && tar -xf "node-v$NODE_VERSION.tar.xz" >/dev/null 2>/dev/null \
-    && echo 'hello2' \
-    && cd "node-v$NODE_VERSION" \
-    && ./configure >/dev/null 2>/dev/null \
-    && echo 'hello1' \
-    && make -s -j$(getconf _NPROCESSORS_ONLN) V= >/dev/null 2>/dev/null\
-    && make install -s >/dev/null 2>/dev/null\
-    && apk del .build-deps-full \
-    && cd .. \
-    && rm -Rf "node-v$NODE_VERSION" \
-    && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt; \
-    && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
-    && apk del .build-deps \
-    # smoke tests
-    && node --version \
-    && npm --version
 
 ENV YARN_VERSION 1.22.4
 
