@@ -63,7 +63,7 @@ RUN gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
   && ./configure \
   && make -j$(getconf _NPROCESSORS_ONLN) V= \
   && make install \
-  && apk del .build-deps-full 
+  && apk del .build-deps-full \
   && cd .. \
   && rm -Rf "node-v$NODE_VERSION" \
   && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
