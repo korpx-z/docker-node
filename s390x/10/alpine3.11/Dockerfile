@@ -33,9 +33,9 @@ RUN addgroup -g 1000 node \
         libgcc \
         linux-headers \
         make \
-        python2 
+        python2 \
     # gpg keys listed at https://github.com/nodejs/node#release-keys
-RUN for key in \
+    && for key in \
       4ED778F539E3634C779C87C6D7062848A1AB005C \
       94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
       1C050899334244A8AF75E53792EF661D867B9DFA \
@@ -52,7 +52,8 @@ RUN for key in \
       gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
       gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
     done \
-    && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz" \
+    
+RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz" \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
     && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
     && grep " node-v$NODE_VERSION.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
