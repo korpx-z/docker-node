@@ -52,6 +52,7 @@ RUN addgroup -g 1000 node \
       gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
       gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
     done \
+    fi \
     
 RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz" \
     && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -68,12 +69,11 @@ RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE
     && cd .. \
     && rm -Rf "node-v$NODE_VERSION" \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt; \
-  fi \
-  && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
-  && apk del .build-deps \
-  # smoke tests
-  && node --version \
-  && npm --version
+    && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
+    && apk del .build-deps \
+    # smoke tests
+    && node --version \
+    && npm --version
 
 ENV YARN_VERSION 1.22.4
 
