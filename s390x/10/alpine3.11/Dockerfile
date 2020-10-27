@@ -84,7 +84,7 @@ RUN gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
   && apk del .build-deps-full \
   && cd .. \
   && rm -Rf "node-v$NODE_VERSION" \
-  && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt; \
+  && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && rm -f "node-v$NODE_VERSION-linux-$ARCH-musl.tar.xz" \
   && apk del .build-deps \
   # smoke tests
